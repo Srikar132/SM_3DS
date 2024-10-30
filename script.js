@@ -1,5 +1,5 @@
-import * as THREE from "three";
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import * as THREE from 'https://cdn.skypack.dev/three';
+import { OrbitControls } from 'https://cdn.skypack.dev/three/addons/controls/OrbitControls.js';
 import dat from "dat.gui"
 const gui = new dat.gui.GUI();
 import gsap from "gsap";
