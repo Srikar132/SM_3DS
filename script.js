@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import dat from 'at.gui'
+import dat from 'dat.gui'
 const gui = new dat.gui.GUI();
 import gsap from 'gsap';
 const raycaster = new THREE.Raycaster();
