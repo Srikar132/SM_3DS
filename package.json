@@ -1,9 +1,15 @@
 {
+  "name": "your-project-name",  
+  "version": "1.0.0",            
+  "type": "module",              
+  "scripts": {
+    "build": "vite build",
+    "start": "vite"
+  },
   "dependencies": {
     "dat.gui": "^0.7.9",
     "gsap": "^3.12.5",
-    "three": "^0.169.0",
-    "type" : "module"
+    "three": "^0.169.0"
   },
   "devDependencies": {
     "vite": "^5.4.10"
