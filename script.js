@@ -1,8 +1,8 @@
-import * as THREE from 'https://cdn.skypack.dev/three';
-import { OrbitControls } from 'https://cdn.skypack.dev/three/addons/controls/OrbitControls.js';
-import dat from "dat.gui"
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import dat from 'at.gui'
 const gui = new dat.gui.GUI();
-import gsap from "gsap";
+import gsap from 'gsap';
 const raycaster = new THREE.Raycaster();
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
