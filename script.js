@@ -12,16 +12,16 @@ renderer.setPixelRatio(devicePixelRatio);
 document.body.appendChild(renderer.domElement);
 const wolrd = {
     plane : {
-        width : 19,
-        height : 19,
-        heightSegment : 17,
-        widthSegment : 17
+        width : 400,
+        height : 400,
+        heightSegment : 50,
+        widthSegment : 50
     }
 }
-gui.add(wolrd.plane , 'width' , 1 , 50).onChange(() => generatePlane())
-gui.add(wolrd.plane , 'height' , 1 , 50).onChange(() => generatePlane())
-gui.add(wolrd.plane , 'heightSegment' , 1 , 50).onChange(() => generatePlane())
-gui.add(wolrd.plane , 'widthSegment' , 1 , 50).onChange(() => generatePlane())
+gui.add(wolrd.plane , 'width' , 1 , 500).onChange(() => generatePlane())
+gui.add(wolrd.plane , 'height' , 1 , 500).onChange(() => generatePlane())
+gui.add(wolrd.plane , 'heightSegment' , 1 , 100).onChange(() => generatePlane())
+gui.add(wolrd.plane , 'widthSegment' , 1 , 100).onChange(() => generatePlane())
 
 
 
@@ -33,14 +33,20 @@ const generatePlane = () => {
     const { array , count } = planeMesh.geometry.attributes.position;
     for (let i = 0; i < array.length; i += 3) {
         // Adjust the z-value randomly to create bump effects
-        array[i + 2] =  Math.random() * 0.5  ; // Random bump height (0 to 0.5)
+        const x = array[i]
+        const y = array[i + 1];
+        const z = array[i + 2];
+        array[i] = x + (Math.random() - 0.5) * 3
+        array[i + 1] = y + (Math.random() -  0.5) * 3
+        array[i + 2] =  z + ( Math.random() - 0.5) * 3 ; 
     }
 
     const colors = [];
     for(let i = 0 ; i < count ; i++) {
         colors.push(0, 0.19, 0.4 )
     } ;
-
+    planeMesh.geometry.attributes.position.originalPosition = array;
+    // console.log(planeMesh.geometry.attributes.position)
     planeMesh.geometry.setAttribute('color' , new THREE.BufferAttribute(new Float32Array(colors) , 3) );
 }
 
@@ -95,20 +101,20 @@ for (let i = 0; i < starsCount; i+=3) {
 }
 starsGeometry.setAttribute('position' , new THREE.BufferAttribute(positions , 3));
 
-const starMaterial = new THREE.PointsMaterial({color : 0xffffff , size : 0.5});
+const starMaterial = new THREE.PointsMaterial({color : 0xffffff , size : 0.9});
 const stars = new THREE.Points(starsGeometry , starMaterial);
 scene.add(stars)
 
 // creating lights
 const light = new THREE.DirectionalLight(0xffffff, 1);
-light.position.set(0, 0, 1);
+light.position.set(0, 1, 1);
 scene.add(light);
 const BackLight = new THREE.DirectionalLight(0xffffff, 1);
 BackLight.position.set(0, 0, -1);
 scene.add(BackLight);
 
 new OrbitControls(camera , renderer.domElement)
-camera.position.z = 5;
+camera.position.z = 50;
 
 generatePlane();
 
@@ -121,13 +127,20 @@ const mouse = {
     x : undefined ,
     y : undefined
 }
+let frame = 0;
 const animate = () => {
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
     stars.rotation.x += 0.0001;
     stars.rotation.y += 0.0001;
     sphereMesh.rotation.y += 0.1;
-
+    frame += 0.01;
+    const {array , originalPosition} = planeMesh.geometry.attributes.position;
+    for (let i = 0; i < array.length; i++) {
+        array[i] = originalPosition[i] + Math.cos(frame * (Math.random() - 0.5))   * 0.013
+        array[i + 1] = originalPosition[i + 1] + Math.sin(frame * (Math.random() - 0.5))   * 0.013
+    }
+    planeMesh.geometry.attributes.position.needsUpdate = true
     raycaster.setFromCamera(mouse , camera);
     const intersects = raycaster.intersectObject(planeMesh)
     if(intersects.length > 0) {
