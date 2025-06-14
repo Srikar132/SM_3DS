@@ -223,7 +223,7 @@ const moveCamera = () => {
                                 x : -800 ,
                                 duration : 0.8,
                                 onComplete : () => {
-                                        window.location.href = "https://srikar132.github.io/personal-cp-updated/"
+                                        window.location.href = "https://srikar-bash.vercel.app/"
                                 }
                             })
                         }
