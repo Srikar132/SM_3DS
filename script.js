@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import dat from 'dat.gui'
-const gui = new dat.gui.GUI();
+//import dat from 'dat.gui'
+//const gui = new dat.gui.GUI();
 import gsap from 'gsap';
 const raycaster = new THREE.Raycaster();
 const scene = new THREE.Scene();
@@ -18,10 +18,10 @@ const wolrd = {
         widthSegment : 50
     }
 }
-gui.add(wolrd.plane , 'width' , 1 , 500).onChange(() => generatePlane())
-gui.add(wolrd.plane , 'height' , 1 , 500).onChange(() => generatePlane())
-gui.add(wolrd.plane , 'heightSegment' , 1 , 100).onChange(() => generatePlane())
-gui.add(wolrd.plane , 'widthSegment' , 1 , 100).onChange(() => generatePlane())
+//gui.add(wolrd.plane , 'width' , 1 , 500).onChange(() => generatePlane())
+//gui.add(wolrd.plane , 'height' , 1 , 500).onChange(() => generatePlane())
+//gui.add(wolrd.plane , 'heightSegment' , 1 , 100).onChange(() => generatePlane())
+//gui.add(wolrd.plane , 'widthSegment' , 1 , 100).onChange(() => generatePlane())
 
 
 
@@ -251,3 +251,4 @@ addEventListener('mousemove'  , (e) => {
     mouse.y =  - 2 * (e.clientY / innerHeight) + 1
 
 })
+
